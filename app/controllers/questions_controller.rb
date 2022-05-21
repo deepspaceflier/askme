@@ -34,8 +34,7 @@ class QuestionsController < ApplicationController
   end
 
   def hide
-    question = Question.find(params[:id])
-    question.update(hidden: 1) if question[:hidden] == false
+    set_question.update(hidden: 1)
 
     redirect_to questions_path
   end
