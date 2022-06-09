@@ -2,13 +2,13 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[update show destroy edit hide]
 
   def create 
-    question = Question.new(question_params)
+    @question = Question.new(question_params)
 
-    if question.save
-      redirect_to question_path(question), notice: 'Новый вопрос создан!'
+    if @question.save
+      redirect_to question_path(@question), notice: 'Новый вопрос создан!'
     else
       flash.now[:alert] = 'Вы неправильно заполнили поле вопроса'
-      
+
       render :new
     end
   end
