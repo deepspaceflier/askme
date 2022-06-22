@@ -8,6 +8,8 @@ class User < ApplicationRecord
             
   validates :nickname, presence: true, uniqueness: true, length: { maximum: 40 }, 
             format: { with: /\A[a-z_]+\z/ }
+
+  validates :header_color, format: { with: /\A#[a-f0-9]{6}\z/i }
   
   private
 

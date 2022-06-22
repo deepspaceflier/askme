@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     if @user.update(user_params)
-      session[:user_id] = user.id
+      session[:user_id] = @user.id
 
       redirect_to root_path, notice: 'Данные пользователя обновлены!'
     else
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :nickname, :email, :password, :password_confirmation
+      :name, :nickname, :email, :header_color, :password, :password_confirmation
     )
   end
 end
