@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   root to: 'questions#index'
   
-  resources :questions do
-    put :hide, on: :member
-  end
-
+  resources :questions
   resource :session, only: %i[new create destroy]
-
-  resources :users, only: %i[new create edit update destroy]
+  resources :users, except: %i[index]
 end

@@ -1,20 +1,26 @@
 <div class="mb-sm">
-  <%= simple_format(h(question.body)) %>
+  <%= question.body %>
 </div>
+
+<% if question.answer.present? %>
+  <div class="mb-sm text-dark-red">
+    <%= question.answer %>
+  </div>
+<% end %>
 
 <div class="text-sm question-footer">
   <div class="text-grey">
     <%= l(question.created_at, format: :short) %>
   </div>
 
-  <div class="text-right">
-    <%= link_to fa_icon('pencil'), edit_question_path(question), title: 'Изменить вопрос' %>
+  <% if current_user == question.user %>
+    <div>
+      <% edit_icon = (question.answer.present? ? 'pencil' : 'reply') %>
 
-    <% unless question.hidden %>
-        <%= button_to fa_icon('eye'), hide_question_path(question), method: :put, title: 'Скрыть вопрос' %>
-    <%end%> 
-
-    <%= button_to fa_icon('trash-o'), question_path(question), method: :delete, title: 'Удалить вопрос', 
-    form: {data: {turbo_confirm: 'Точно удалить вопрос?'}} %>
-  </div>
+      <%= link_to fa_icon(edit_icon), edit_question_path(question),
+        title: 'Изменить вопрос', class: 'mr-sm' %>
+      <%= button_to fa_icon('trash-o'), question_path(question),
+        method: :delete, title: 'Удалить вопрос' %>
+    </div>
+  <% end %>
 </div>
